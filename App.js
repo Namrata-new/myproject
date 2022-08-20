@@ -1,16 +1,20 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screen/HomeScreen';
-import AboutScreen from './src/screen/AboutScreen';
+import DoctorScreen from './src/screen/DoctorScreen';
 import Login from './src/screen/Login';
 import Register from './src/screen/Register';
 import SideBar from './src/screen/SideBar';
 import DoctorProfile from './src/screen/DoctorProfile';
 import HospitalsProfile from './src/screen/HospitalsProfile';
-import MyAppointment from './src/screen/MyAppointment';
+import Hospitals from './src/screen/Hospitals';
+import PatientForm from './src/screen/PatientForm';
+import SelectDateTime from './src/screen/SelectDateTime';
+import PaymentScreen from './src/screen/PaymentScreen';
+import { Ionicons } from '@expo/vector-icons'; 
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -18,11 +22,35 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator  >
          <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
-         <Stack.Screen name="PatientLogin" component={Login} />
+         <Stack.Screen name="PatientLogin" component={Login} 
+          options={{ 
+         header: () => (
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          // justifyContent: 'space-between',
+          height: 50,
+          backgroundColor:'#004d61'
+        }}>
+        <TouchableOpacity
+          style={{ alignSelf:'center',padding:10}}
+          onPress={() =>navigation.navigate('Home')} 
+        >
+          <Ionicons name="chevron-back" size={24} color="#fff" />
+        </TouchableOpacity>
+        <View style={styles.container}><Text style={{color:'#fff',fontSize:16,fontWeight:'bold'}}>Patient Login</Text></View>
+      </View>
+      ),}}/>
          <Stack.Screen name="PatientRegister" component={Register} />
          <Stack.Screen name="Sidebar" component={SideBar} options={{ headerShown: false }}/>
          <Stack.Screen name="Doctor Profile" component={DoctorProfile} />
          <Stack.Screen name="Hospitals Profile" component={HospitalsProfile} />
+         <Stack.Screen name="Doctors" component={DoctorScreen} />
+         <Stack.Screen name="Hospitals" component={Hospitals} />
+         <Stack.Screen name="Select Date" component={SelectDateTime} />
+         <Stack.Screen name="Patient Form" component={PatientForm} />
+         <Stack.Screen name="Payment Form" component={PaymentScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -30,8 +58,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },

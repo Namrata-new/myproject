@@ -4,21 +4,18 @@ import { SafeAreaView,TouchableOpacity, Button,View, Alert, Text,StyleSheet,Text
  
 const DoctorProfile = ({ navigation ,route}) => {
    const user = JSON.parse(localStorage.getItem('LoginUser'));
-   
+   console.log(route.params)
    return (
     <View style={styles.container}>
         <View style={styles.profile}  >
-           <Image source={{uri: require('../assets/doctor.jpg')}}  style={{
-                width:260,
-                height:260,
-                flex:1
-              
-            }}/>
+           <Image source={{uri:route.params.profilepic}} style={{ width:260,height:260,flex:1 }}/>
+
+         
             <View >
-                <Text style={{fontWeight:'bold',fontSize:18,color:'#413e3e'}}>{route.params.data.drname}</Text>
-                <Text>{route.params.data.spe}</Text>
-                <Text>{route.params.data.bio}</Text>
-                <Text>{route.params.data.location}</Text>
+                <Text style={{fontWeight:'bold',fontSize:18,color:'#413e3e',alignSelf:'center'}}>{route.params.doctorname}</Text>
+                <Text>{route.params.specialization}</Text>
+                <Text>{route.params.biography}</Text>
+                <Text>{route.params.address}</Text>
             </View>
         </View>
        <Text></Text>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect ,useCallback} from 'react';
-import { Button, View, Alert, Text,StyleSheet,ScrollView,TouchableOpacity,} from 'react-native';
-import { NativeBaseProvider, Box ,Input,Modal} from "native-base";
+import React, { useState, useEffect } from 'react';
+import { Button, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { NativeBaseProvider, Box , Input, Modal} from "native-base";
 import * as DocumentPicker from 'expo-document-picker';
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import axios from "axios";
@@ -18,7 +18,9 @@ const GetDia = ({ navigation }) => {
         setPid(count);
        
        }else {
-        setPid(response.data.length + 1)
+        let data=response.data[response.data.length - 1];
+        setPid(data.id+1)
+       
        }
        
     });
@@ -98,12 +100,10 @@ const GetDia = ({ navigation }) => {
         axios.post('http://localhost:3001/Idiagnosed',PData)
         .then(()=>{
           console.log("success")
+          setShowModal(true)
+
         });
-        setShowModal(true)
-
       }
-
-
     }
    
     const onClose=()=>{
@@ -112,7 +112,7 @@ const GetDia = ({ navigation }) => {
           firstName:'',
           lastName:'',
           emailAddress:'',
-          diseasesym:'',
+          diseaseSym:'',
           contactNo:'',
           address:'',
           country:'',
@@ -121,7 +121,8 @@ const GetDia = ({ navigation }) => {
           result:'',
           fileName:''
         });
-        setShowModal(false)
+        setShowModal(false);
+        
     }
     
    return (

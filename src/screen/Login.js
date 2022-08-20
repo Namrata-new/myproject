@@ -47,7 +47,6 @@ const Login = ({ navigation }) => {
     if(isValidForm()){
       axios.get("http://localhost:3001/Register")
      .then((response) => {
-         console.log(response.data) 
          var Tdate = new Date();
          const date = ('0' + Tdate.getDate()).slice(-2);
          const month = ('0' + (Tdate.getMonth() + 1)).slice(-2);
@@ -77,6 +76,7 @@ const Login = ({ navigation }) => {
            }
          })}
      });
+   
     }
     // if(email==='' && passwords===''){
     //   setError('Enter the email and Password')

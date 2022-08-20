@@ -73,12 +73,14 @@ const Register = ({ navigation }) => {
   const getData=()=>{
     axios.get("http://localhost:3001/Register")
      .then((response) => {
+      console.log(response)
      if(response.data.length === 0){
       let count=response.data.length+1;
       setPid(count);
      
      }else {
-      setPid(response.data.length + 1)
+      let data=response.data[response.data.length - 1];
+      setPid(data.id+1)
      }
     });
   }
@@ -99,7 +101,7 @@ const Register = ({ navigation }) => {
    
   }
   const handleSave=()=>{
-   
+    
       if(isValidForm()){
         axios.post('http://localhost:3001/Register',RegisterData)
         .then(()=>{
@@ -110,9 +112,14 @@ const Register = ({ navigation }) => {
           navigation.navigate('PatientLogin');
         });
         
+       
+        
       }
 
 
+  }
+  const handleGet=()=>{
+    console.log("success")
   }
   const onClose=()=>{
     setFirstName('');
@@ -131,7 +138,7 @@ const Register = ({ navigation }) => {
     var dd = String(date.getDate()).padStart(2, '0');
     var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = date.getFullYear();
-
+ 
     const today = yyyy + '-' + mm + '-' + dd;
     setBirthDay(today)
    

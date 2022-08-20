@@ -5,6 +5,8 @@ import { Entypo } from '@expo/vector-icons';
 import { NativeBaseProvider, Box ,Input,Modal} from "native-base"; 
 import * as DocumentPicker from 'expo-document-picker';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons'; 
+
 const PatientProfile = ({ navigation }) => {
    const user = JSON.parse(localStorage.getItem('LoginUser'));
    const [showEdit , setShowEdit] = useState(false);
@@ -155,8 +157,12 @@ const PatientProfile = ({ navigation }) => {
     <View style = {styles.fcontainer}>
       {showEdit ?       
           <View style={styles.container}>
+            <View style={{padding:0}}> 
+             <Ionicons name="chevron-back-circle-sharp" size={24} color="#fff" onPress={()=>setShowEdit(false)} />
+            </View>
             <NativeBaseProvider >
             <Box style={styles.form}> 
+          
               <View style={styles.input} >
                 <Text fontSize="md">First Name</Text>
                 <Input placeholder="First Name" value={values.firstname} onChangeText={(value) => handleOnChangeText(value,'firstname')}/>
@@ -401,7 +407,7 @@ const styles = StyleSheet.create({
   form:{
     width:'100%',
     backgroundColor:'#fff',
-    marginTop:20,
+    marginTop:0,
     alignSelf:'center',
     padding:20
   },

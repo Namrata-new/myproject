@@ -3,18 +3,18 @@ import { SafeAreaView,TouchableOpacity, Button,View, Alert, Text,StyleSheet,Text
 
  
 const HospitalsProfile = ({ navigation ,route}) => {
-  
+  console.log(route.params)
    
    return (
     <View style={styles.container}>
         <View style={styles.profile}  >
-         <Image source={{uri: require('../assets/hospital.jpg')}} style={{ width:260,height:260,flex:1 }}/>
-        
+         <Image source={{uri:route.params.hospitalimage}} style={{ width:260,height:260,flex:1 }}/>
             <View >
                 {/* <Text style={{fontWeight:'bold',fontSize:18,color:'#413e3e'}}>{route.params.data.drname}</Text>
                 <Text>{route.params.data.spe}</Text>
                 <Text>{route.params.data.bio}</Text>*/}
-                <Text>{route.params.data}</Text> 
+                <Text style={{alignSelf:'center'}}>{route.params.hospitalname}</Text> 
+                <Text style={{}}>{route.params.hosdetails}</Text> 
             </View>
         </View>
        <Text></Text>

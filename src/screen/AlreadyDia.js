@@ -6,33 +6,40 @@ import axios from "axios";
 const AlreadyDia = ({ navigation }) => {
   const [countryitems, setCountryItems] = useState([]);
   const [specitems, setSpecItems] = useState([]);
-  const [deptitems, setDeptItems] = useState([]);
   const [department,setDepartment]=useState('');
   const [destination,setDestination]=useState('');
   const selectDept = (department) => {
     setDepartment(department);
-   
   }
   const selectDesti = (destination) => {
     setDestination(destination);
-   
   }
   useEffect(() => {
-    getCountryData();
-    getSpeciData();
-    
-  });
-  const getCountryData=()=>{
-  axios.get("http://localhost:3001/country_name")
-  .then((response) => {
-    setCountryItems(response.data)
-  });
+    axios.get(`http://localhost:3001/country_name`)
+     .then(res => {
+        const data = res.data;
+        setCountryItems(data)
+       
+    })
+    axios.get(`http://localhost:3001/specialization`)
+      .then(res => {
+        const data = res.data;
+        setSpecItems(data)
+    })
+  }, []);
+  const facility=()=>{
+    if(department==='' && destination ===''){
+      alert('Select Value');
+    }else{
+      navigation.navigate('Hospitals',{department: department,destination:destination})
+    }
   }
-  const getSpeciData=()=>{
-  axios.get("http://localhost:3001/specialization")
-  .then((response) => {
-    setSpecItems(response.data)
-  });
+  const doctors=()=>{
+    if(department==='' && destination ===''){
+      alert('Select Value');
+    }else{
+      navigation.navigate('Doctors',{department: department,destination:destination})
+    }
   }
   return (
     <View >
@@ -48,7 +55,7 @@ const AlreadyDia = ({ navigation }) => {
      {specitems.map((item,index)=>{
         
          return(
-          <Picker.Item  key={index}  label = {item.specializationname} value = {item.specializationname} />
+          <Picker.Item  key={index}  label = {item.specialization} value = {item.specialization} />
          )
       })}
       
@@ -63,19 +70,16 @@ const AlreadyDia = ({ navigation }) => {
      </Picker>
     </View>
     <View  style={styles.buttonContainer}>
-     <TouchableOpacity  style={styles.appButtonContainer} onPress={() => navigation.navigate('Already Diag')}>
+     <TouchableOpacity  style={styles.appButtonContainer} onPress={facility}>
        <Text style={styles.appButtonText}>Search Facility</Text>
      </TouchableOpacity>
      <br/>
-     <TouchableOpacity  style={styles.appButtonContainer}  onPress={() => navigation.navigate('PatientLogin')}>
+     <TouchableOpacity  style={styles.appButtonContainer}  onPress={doctors}>
        <Text style={styles.appButtonText}>Search Doctors</Text>
      </TouchableOpacity>
-    
-      {/* <Button title="Sign IN" titleStyle={{ fontWeight: 'bold' }} onPress={() => navigation.navigate('PatientLogin')}/>
-      <br/>
-      <Button title="Sign Up" titleStyle={{ fontWeight: 'bold' }} onPress={() => navigation.navigate('PatientRegister')}/> */}
+   
      </View>
-    <Text style = {styles.text}>{department}{destination}</Text>
+   
     </View>
  
   );

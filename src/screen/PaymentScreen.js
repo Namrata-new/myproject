@@ -3,16 +3,113 @@ import { SafeAreaView, StyleSheet, View, Text, Button,TextInput,TouchableOpacity
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
-
-const PaymentScreen = ({ navigation }) => {
+import Modal from "react-native-modal";
+import axios from "axios";
+import moment from 'moment';
+const PaymentScreen = ({ navigation, route }) => {
+  const user = JSON.parse(localStorage.getItem('LoginUser'));
+  var Tdate = new Date();
+  const date = ('0' + Tdate.getDate()).slice(-2);
+  const month = ('0' + (Tdate.getMonth() + 1)).slice(-2);
+  const year = Tdate.getFullYear();
+  const hours = ('0' + Tdate.getHours()).slice(-2);
+  const minutes = ('0' + Tdate.getMinutes()).slice(-2);
+  const seconds = ('0' + Tdate.getSeconds()).slice(-2);
+  const tDateTime = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
+  const [appid,setAppid] = useState('');
   const [values,setValues]= useState({
     email:'',
     cardholdername:'',
     cardholderno:'',
     mmyy:'',
     cvc:'',
-    amount:''
+    amount:route.params.slot.hospital.doctor.remoteconfees,
   })
+  const [isModalVisible, setModalVisible] = useState(false);
+  const pbirthDate=moment(user.birthdate).utc().format('YYYY-MM-DD');
+  const ApptData={
+    id:appid,
+    //patientinfo
+    firstName:user.firstname,
+    lastName:user.lastname,
+    gender:user.gender,
+    birthdate:pbirthDate,
+    pid:user.id,
+
+    //apptdetails
+    reason:route.params.patientform.reason,
+    currmedications:route.params.patientform.currmedications,
+    healthissue:route.params.patientform.healthissue,
+    labtestperformed:route.params.patientform.labtestperformed,
+    pastmedications:route.params.patientform.pastmedications,
+    prevhistory:route.params.patientform.prevhistory,
+    report:route.params.patientform.report,
+    reportname:route.params.patientform.reportname,
+
+    //appttime
+    slottime:route.params.slot.slot,
+    appointmentdate:route.params.slot.apptdate,
+    bookingdate:tDateTime,
+
+    //payementdetails
+    paymentemailid:values.email,
+    cardholdername:values.cardholdername,
+    cardholderno:values.cardholderno,
+    mmyy:values.mmyy,
+    cvc:values.cvc,
+    amount:values.amount,
+
+    //id
+    hospitalid:route.params.slot.hospital.hospitalid,
+    doctorid:route.params.slot.hospital.doctor.id,
+
+    //drinfo done
+    doctorname:route.params.slot.hospital.doctor.doctorname,
+    doctorimg:route.params.slot.hospital.doctor.profilepic,
+    
+    //status
+    doctorstatus:'Pending',
+    adminstatus:'Pending',
+    status:'Pending',
+    actions:'Cancel Appointment',
+    resheduledate:'0000-00-00',
+    resheduletime:'',
+    reschedulereason:'',
+    apptlink:'',
+    cancelreason:'',
+ 
+  }
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+   
+    axios.post('http://localhost:3001/appointments',ApptData)
+        .then((res)=>{
+          console.log(res)
+          navigation.navigate('My Appointments')
+    });
+   
+  };
+  useEffect(() => {
+    // console.log(route.params)
+    getData();
+  }, []);
+  const getData=()=>{
+  axios.get("http://localhost:3001/appointments")
+  .then((response) => {
+     if(response.data.length === 0){
+      let count=response.data.length+1;
+      setAppid(count);
+     
+     }else {
+       let data=response.data[response.data.length - 1];
+       setAppid(data.id+1)
+     }
+    // console.log(response.data)
+   
+    // console.log(response.data[response.data.length - 1])
+     
+  });
+  }
   const handleOnChangeText =(value,fieldName)=>{
     setValues({...values, [fieldName]: value });
 
@@ -43,17 +140,22 @@ const PaymentScreen = ({ navigation }) => {
     if(isValidForm()){
       console.log("submitData")
       console.log(values)
+      setModalVisible(!isModalVisible);
+      
     }
+   
   }
   const alertMessage=()=>{
     alert(error)
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View  style={styles.logo}> <MaterialIcons  style={ {marginTop:20}}name="payment" size={60} color="#fff" /></View>
+      
       <View style={styles.card}> 
-       <View style={{marginTop:44}}>
-         
+       <View  style={styles.logo}> 
+         <MaterialIcons  style={{marginTop:20,alignSelf:'center'}}name="payment" size={60} color="#fff" />
+       </View>
+     
          <View style={styles.sectionStyle}>
           
           <TextInput
@@ -115,6 +217,7 @@ const PaymentScreen = ({ navigation }) => {
             placeholder="Payment Amount"
             onChangeText={(value) => handleOnChangeText(value,'amount')}
             value={values.amount}
+            editable={false}
           />
          
          </View>
@@ -123,11 +226,28 @@ const PaymentScreen = ({ navigation }) => {
               <Text style={styles.paymentText}>Payment</Text>
             </TouchableOpacity>
          </View>
-         {error ? alertMessage() :null}
-       </View> 
+         <Text>{error ? alertMessage() :null}</Text>
+       
 
       </View>
-      
+     
+      {/* <Button title="Show modal" onPress={toggleModal} /> */}
+
+      <Modal isVisible={isModalVisible}>
+        <View style={styles.modal}>
+          <View style={{marginTop:-50}}>
+          <Ionicons name="checkmark-done-circle" size={80} color="green" />
+          </View>
+          <Text style={{fontSize:24,fontWeight:'bold',marginBottom:20}}>Awesome!</Text>
+          <Text style={styles.modalText}>Your Booking has been confirmed.</Text>
+          <Text style={styles.modalText}>Check your Appointments for details.</Text>
+          <TouchableOpacity style={styles.successbtn} onPress={toggleModal}>
+              <Text style={styles.paymentText}>OK</Text>
+          </TouchableOpacity>
+          {/* <Button title="Ok" onPress={toggleModal} /> */}
+        </View>
+      </Modal>
+   
     </SafeAreaView>
   );
 };
@@ -143,18 +263,21 @@ const styles = StyleSheet.create({
   card:{
     boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px',
     width:'90%',
-    height:460,
-    marginTop:-44,
-    padding:10,
+    height:"auto",
+    padding:20,
+    borderRadius: 25,
+    // background: rgb(238,174,202);
+    backgroundColor: 'radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)'
     
   },
   logo:{
     width: 100,
     height: 100,
     borderRadius: 180 / 2,
-    backgroundColor: 'red',
     boxShadow:' rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-    alignItems:'center'
+    alignSelf:'center',
+    top:-40,
+    backgroundImage: 'linear-gradient(to right top, #004d61, #015974, #086687, #15739b, #257faf)'
   },
   input:{
     padding:20,
@@ -168,7 +291,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 25,
     marginTop:4,
-    borderColor: 'gray', borderWidth: 1,
+    borderColor: '#fff', borderWidth: 1,
   },
   imageStyle: {
     resizeMode: 'stretch',
@@ -189,6 +312,25 @@ const styles = StyleSheet.create({
   paymentText:{
     color:"#fff",
     fontWeight:'bold'
+  },
+  modal:{
+    backgroundColor:'#fff',
+    paddingTop:20,
+    paddingBottom:20,
+    alignItems:'center',
+    borderRadius:20
+  },
+  modalText:{
+    fontSize:16,
+    fontWeight:400,
+  },
+  successbtn:{
+    width:"60%",
+    backgroundColor:"green",
+    alignItems:"center",
+    height:38,
+    justifyContent:"center",
+    marginTop:20
   }
 });
 

@@ -3,8 +3,9 @@ import { SafeAreaView, StyleSheet, View, Text, Button,TouchableOpacity } from 'r
 import { NativeBaseProvider, Box ,Input,Modal} from "native-base";
 import * as DocumentPicker from 'expo-document-picker';
 import { FontAwesome5 } from '@expo/vector-icons'; 
-const PatientForm = ({ navigation }) => {
+const PatientForm = ({ navigation, route }) => {
     const [values,setValues]= useState({
+       reason:'',
        healthissue:'',
        prevhistory:'',
        currmedications:'',
@@ -13,6 +14,9 @@ const PatientForm = ({ navigation }) => {
        report:'',
        reportname:''
     })
+    useEffect(() => {
+      console.log(route.params)
+    }, []);
     const pickDocument = async () => {
         let result = await DocumentPicker.getDocumentAsync({});
         setValues({...values, reportname: result.file.name ,report: result.uri});
@@ -32,8 +36,8 @@ const PatientForm = ({ navigation }) => {
 
     const [error,setError]=useState('');
     const isValidForm=()=>{
-       if(!values.healthissue.trim() && !values.prevhistory.trim() ) return updateError("Required  Field",setError)
-     
+       if(!values.reason.trim() || !values.healthissue.trim() || !values.prevhistory.trim() ) return updateError("Required  Field",setError)
+      
        return true;
    
     }
@@ -42,6 +46,7 @@ const PatientForm = ({ navigation }) => {
       if(isValidForm()){
         console.log("submitData")
         console.log(values)
+        navigation.navigate('Payment Form',{slot:route.params,patientform:values})
       }
      
     }
@@ -53,6 +58,10 @@ const PatientForm = ({ navigation }) => {
       <Text style={styles.headerText}> Fill The Information</Text>
     <NativeBaseProvider>
       <Box style={styles.form}> 
+        <View style={styles.input}>
+          <Text fontSize="md">Reason of booking appointment</Text>
+          <Input placeholder="Reason of booking appointment" value={values.reason} onChangeText={(value) => handleOnChangeText(value,'reason')}/>
+        </View>
         <View style={styles.input}>
           <Text fontSize="md">More details about the presenting complaint</Text>
           <Input placeholder="Provide Details such as duration of the health issue" value={values.healthissue} onChangeText={(value) => handleOnChangeText(value,'healthissue')}/>
@@ -119,7 +128,7 @@ const styles = StyleSheet.create({
   form:{
     width:'100%',
     backgroundColor:'#fff',
-    marginTop:80,
+    marginTop:10,
     padding:20
   },
   input:{

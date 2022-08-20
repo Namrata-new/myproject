@@ -32,11 +32,11 @@ import { color } from 'react-native-reanimated';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import PatientHome from './PatientHome';
 import AlreadyDia from './AlreadyDia';
-import AboutScreen from './AboutScreen';
+import DoctorScreen from './DoctorScreen';
 import PatientProfile from './PatientProfile';
 import GetDia from './GetDia';
 import Hospitals from './Hospitals';
-
+import MyAppointment from './MyAppointment';
 
 function Feed() {
  
@@ -125,7 +125,7 @@ const SideBar = ({ navigation }) => {
        
         screenOptions={{
          color:'#fff',
-         drawerActiveBackgroundColor:'red',
+         drawerActiveBackgroundColor:'#FC4F4F',
         //  activeItemKey === 'appointment' ? { color: '#000' } : { color: '#fff' }
        }}   
       >
@@ -287,7 +287,7 @@ const SideBar = ({ navigation }) => {
             ),
            
          }}
-          component={AboutScreen}
+          component={MyAppointment}
         />
         <Drawer.Screen
           name="My Trips"
@@ -312,7 +312,7 @@ const SideBar = ({ navigation }) => {
           name="My Itinerary"
           options={{
             drawerLabel: ()=>(
-               <Text  style={styles.drawerscreen}>My Itinerary</Text>
+               <Text style={styles.drawerscreen}>My Itinerary</Text>
              ),
             drawerIcon: () => (
               <Icon
@@ -326,7 +326,7 @@ const SideBar = ({ navigation }) => {
            
          }} 
         
-          component={Hospitals}
+          component={Article}
         />
         <Drawer.Screen
           name="Trip Status"
@@ -379,6 +379,7 @@ const styles = StyleSheet.create({
     logo: {
       width: 66,
       height: 58,
+      
     },
     username: {
       fontWeight:'bold',
