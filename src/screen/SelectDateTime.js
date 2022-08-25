@@ -1,13 +1,14 @@
 import React,{useEffect,useState} from 'react';
 import { SafeAreaView, StyleSheet, View, Text, Button, TouchableOpacity,Pressable } from 'react-native';
-import DatePicker from 'react-datepicker';
-import { format } from 'date-fns';
+
 import axios from "axios";
 import moment from 'moment';
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-native-neat-date-picker'
+
 
 const SelectDateTime = ({ navigation,route }) => {
     const [startDate, setStartDate] = useState(new Date());
+    const [apptdate, setApptdate] = useState('Select Date');
     const [isOpen, setIsOpen] = useState(false);
     const [isShow, setIsShow] = useState(false);
     const [slotsData ,setSlotsData]= useState([]);
@@ -22,20 +23,18 @@ const SelectDateTime = ({ navigation,route }) => {
      
     }, []);
 
-    const handleChange = (e) => {
-      setIsOpen(!isOpen);
-      setStartDate(e);
+    // const handleChange = (e) => {
+    //   setIsOpen(!isOpen);
+    //   setStartDate(e);
      
-    };
+    // };
     const showSlot=()=>{
-      const selectdate=format(startDate, "yyyy-MM-dd")
-      
       axios.get(`http://localhost:3001/appointments`)
       .then(res => {
          const data = res.data;
          let arr = [];
          data.some(data => {
-          if (data.appointmentdate === selectdate && data.hospitalid===route.params.hospitalid && data.doctorid===route.params.doctor.id && data.pid === user.id) {
+          if (data.appointmentdate === apptdate && data.hospitalid===route.params.hospitalid && data.doctorid===route.params.doctor.id && data.pid === user.id) {
             console.log(data.slottime)
             arr.push(data.slottime);
         
@@ -56,7 +55,7 @@ const SelectDateTime = ({ navigation,route }) => {
       setIsShow(false);
     };
     const handleSlot =(slot)=>{
-      const apptdate=format(startDate, "yyyy-MM-dd");
+      // const apptdate=format(startDate, "yyyy-MM-dd");
       const slottime=slot.start_time +' '+ slot.st_meridiem+' '+'to'+' '+ slot.end_time + ' '+ slot.et_meridiem;
       navigation.navigate('Patient Form',{hospital:route.params,apptdate:apptdate,slot:slottime})
     }
@@ -68,28 +67,54 @@ const SelectDateTime = ({ navigation,route }) => {
       }
     
     })
+    const onCancel = () => {
+      // You should close the modal in here
+      setIsOpen(!isOpen);
+    }
+  
+    const onConfirm = ( date ) => {
+      // You should close the modal in here
+      setIsOpen(!isOpen);
+   
+      // The parameter 'date' is a Date object so that you can use any Date prototype method.
+      console.log(date.dateString)
+      setApptdate(date.dateString)
+    }
   return (
     <SafeAreaView style={{backgroundColor:'#fff',flex:1}}>
       
       {/* <Button onPress={handleClick} />
       <DatePicker selected={startDate} onChange={date => setStartDate(date)} /> */}
-      <Text style={{alignSelf:'center',fontSize:20,fontWeight:'bold',color:'#004d61',marginBottom:10}}> Click here to Select Date</Text>
+    
       {/* <Button onPress={handleClick} title={format(startDate, "dd-MM-yyyy")} color="#841584"/> */}
+      {/* <View style={{marginTop:10}}>
+        <Button color="#841584" title={apptdate} onPress={handleClick}/>
+      </View>
+      */}
       <View style={{marginRight:20,marginLeft:20,flexDirection: "row",justifyContent: "space-around"}}>
       <Pressable style={styles.datebtn}  onPress={handleClick}>
-        <Text style={styles.text}>{format(startDate, "dd-MM-yyyy")}</Text>
+        <Text style={styles.text}>{apptdate}</Text>
       </Pressable>
+      
       <Pressable style={styles.deletebtn} onPress={showSlot}>
         <Text style={styles.text}>Check Slot</Text>
       </Pressable>
       </View>
      
-      {isOpen && (
+      {/* {isOpen && (
         <View style={{alignItems:'center'}}>
           <DatePicker selected={startDate} onChange={handleChange} inline  minDate={moment().toDate()}/>
         </View>
        
       )}
+      */}
+     <DatePicker
+        isVisible={isOpen}
+        mode={'single'}
+        onCancel={onCancel}
+        onConfirm={onConfirm}
+        minDate={moment().toDate()}
+      />
      
       {isShow && (
         <View>

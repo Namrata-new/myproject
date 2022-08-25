@@ -1,12 +1,12 @@
 import React ,{useState,useEffect }from 'react';
 import { SafeAreaView,TouchableOpacity, Button,View, Alert, Text,StyleSheet,TextInput,Picker, Platform, StatusBar } from 'react-native';
-import DatePicker from '@dietime/react-native-date-picker';
 import { FontAwesome } from '@expo/vector-icons'; 
 import * as DocumentPicker from 'expo-document-picker';
 import axios from "axios";
-
+import DatePicker from 'react-native-neat-date-picker'
 const Register = ({ navigation }) => {
   var Tdate = new Date();
+  const [showDatePicker, setShowDatePicker] = useState(false)
   const date = ('0' + Tdate.getDate()).slice(-2);
   const month = ('0' + (Tdate.getMonth() + 1)).slice(-2);
   const year = Tdate.getFullYear();
@@ -28,9 +28,24 @@ const Register = ({ navigation }) => {
   const [profilePic ,setProfilePic] = useState('');
   const [profilePicName ,setProfilePicName] = useState('');
   const [birthdate, setBirthDate] = useState(new Date());
-  const [birthday, setBirthDay] = useState(new Date());
+  const [birthday, setBirthDay] = useState('Select Birth Date');
   const [error,setError]=useState('');
+  const openDatePicker = () => {
+    setShowDatePicker(true)
+  }
+
+  const onCancel = () => {
+   
+    setShowDatePicker(false)
+  }
+
+  const onConfirm = ( date ) => {
   
+    setShowDatePicker(false)
+   
+    console.log(date.dateString)
+    setBirthDay(date.dateString)
+  }
   const pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({});
     console.log(result)
@@ -233,13 +248,25 @@ const Register = ({ navigation }) => {
             />
             
       </View>
+      <View style={styles.inputView} >
+          <TouchableOpacity  
+             style={styles.inputText}
+             onPress={openDatePicker}
+           
+            // onChangeText={newText => setAddress(newText)}
+            // value={address}
+            // onChangeText={text => this.setState({email:text})}
+           
+            ><Text style={{marginTop:-6,color:'#A9A9A9'}}>{birthday}</Text>
+             </TouchableOpacity >
+      </View>
       <TouchableOpacity onPress={pickDocument}  style={styles.appButtonContainer}>
            <Text style={styles.appButtonText}><FontAwesome name="photo" size={18} /> Upload Profile Photo</Text>
       </TouchableOpacity >
       <Text>{profilePicName}</Text>
       <View style={{width:'100%',padding:20,marginTop:-20}} >
-      <Text style={{color:'#A9A9A9',alignSelf:'center',paddingTop:20}}>{birthdate ? "Birth Date :" + birthdate.toDateString() : "Select Birth Date..."}</Text>
-        <DatePicker
+      {/*<Text style={{color:'#A9A9A9',alignSelf:'center',paddingTop:20}}>{birthdate ? "Birth Date :" + birthdate.toDateString() : "Select Birth Date..."}</Text>
+         <DatePicker
           startYear={Syear}
           endYear={Eyear}
           value={birthdate}
@@ -249,7 +276,14 @@ const Register = ({ navigation }) => {
           markColor='#A9A9A9'
           fadeColor='#fff'
           textColor="#fff"
-        />   
+        />    */}
+        {/* <Button title={'open'} onPress={openDatePicker}/> */}
+      <DatePicker
+        isVisible={showDatePicker}
+        mode={'single'}
+        onCancel={onCancel}
+        onConfirm={onConfirm}
+      />
       </View>
       
       {error ? <Text style={{color:'red',textAlign:'center'}}>{error}</Text>:null}

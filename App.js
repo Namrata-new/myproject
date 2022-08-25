@@ -19,13 +19,14 @@ import AlreadyDia from './src/screen/AlreadyDia';
 import GetDia from './src/screen/GetDia';
 import FeedBack from './src/screen/FeedBack';
 import QueryScreen from './src/screen/QueryScreen';
+import Dates from './src/screen/Dates';
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator  >
-         <Stack.Screen name="Home" component={FeedBack} options={{ headerShown: false }}/>
+         <Stack.Screen name="Home" component={Dates} options={{ headerShown: false }}/>
          <Stack.Screen name="PatientLogin" component={Login} 
           options={{ 
          header: () => (
