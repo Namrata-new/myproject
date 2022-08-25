@@ -1,25 +1,5 @@
-// import { createDrawerNavigator } from '@react-navigation/drawer';
-// const Drawer = createDrawerNavigator();
-// import Login from './Login';
-
-// const SideBar = ({ navigation }) => {
-
-//     return (
-//     <Drawer.Navigator >
-//         <Drawer.Screen name="sreen1" component={Login}>
-
-//         </Drawer.Screen>
-//         <Drawer.Screen name="sreen2"  component={Login}>
- 
-//         </Drawer.Screen>
-//     </Drawer.Navigator>
-
-//     );
-// };
-// export default SideBar;
 import * as React from 'react';
 import { View, Text,SafeAreaView,Image ,StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
@@ -28,35 +8,17 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { color } from 'react-native-reanimated';
+
 import Ionicons from '@expo/vector-icons/Ionicons';
 import PatientHome from './PatientHome';
 import AlreadyDia from './AlreadyDia';
-import DoctorScreen from './DoctorScreen';
 import PatientProfile from './PatientProfile';
 import GetDia from './GetDia';
-import Hospitals from './Hospitals';
 import MyAppointment from './MyAppointment';
+import MyItinerary from './MyItinerary';
+import MyTripStatus from './MyTripStatus';
+import MyTrips from './MyTrips';
 
-function Feed() {
- 
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Feed Screen</Text>
-        <Ionicons name='md-checkmark-circle' size={32} color='green' />
-        
-      </View>
-    );
-  }
-  
-function Article() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Article Screen</Text>
-        <Icon name="facebook" backgroundColor="#3b5998"></Icon>
-      </View>
-    );
-}
 function Logout() {
    return (
       navigation.navigate('PatientLogin')
@@ -239,7 +201,7 @@ const SideBar = ({ navigation }) => {
             
          }}/> */}
         <Drawer.Screen
-          name="Home"
+          name="Homes"
           options={{
             drawerLabel: ()=>(
                <Text style={styles.drawerscreen}>Home</Text>
@@ -305,7 +267,7 @@ const SideBar = ({ navigation }) => {
            
          }} 
         
-          component={Article}
+          component={MyTrips}
         />
         
         <Drawer.Screen
@@ -326,7 +288,7 @@ const SideBar = ({ navigation }) => {
            
          }} 
         
-          component={Article}
+          component={MyItinerary}
         />
         <Drawer.Screen
           name="Trip Status"
@@ -340,7 +302,7 @@ const SideBar = ({ navigation }) => {
            
          }} 
         
-          component={Article}
+          component={MyTripStatus}
         />
         <Drawer.Screen
           name="Signout"
@@ -358,7 +320,7 @@ const SideBar = ({ navigation }) => {
          }} 
           component={Logout}
         />
-        <Drawer.Screen name="Already Diag" component={AlreadyDia} 
+        {/* <Drawer.Screen name="Already Diag" component={AlreadyDia} 
           options={{
             drawerLabel: ()=>(
               <Text style={{display:'none'}}>Already Diago</Text>
@@ -370,7 +332,7 @@ const SideBar = ({ navigation }) => {
             drawerLabel: ()=>(
               <Text style={{display:'none'}}>Get_Diag</Text>
             ),
-        }}/>
+        }}/> */}
       </Drawer.Navigator>
     );
 }

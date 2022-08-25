@@ -8,6 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Modal from "react-native-modal";
 import { Ionicons } from '@expo/vector-icons'; 
 
+
 const MyAppointment = ({ navigation, route }) => {
   const user = JSON.parse(localStorage.getItem('LoginUser'));
   const [myappt, setMyappt] = useState([]);
@@ -120,12 +121,13 @@ const MyAppointment = ({ navigation, route }) => {
                    <Ionicons name="checkmark-done-circle-sharp" size={14} color="#8601AF"  />
                    <Text style={{textAlign:'center',fontWeight:'bold',color:"#8601AF"}}> {data.adminstatus}</Text>
                    </Chip>}
-                   
+                   {data.adminstatus === 'Cancel' && <Chip variant="outlined" color="red" >
+                   <MaterialIcons name="cancel" size={14} color="red" />
+                   <Text style={{textAlign:'center',fontWeight:'bold',color:"red"}}> {data.adminstatus}</Text>
+                   </Chip>}  
+                   </View>               
                    </View>
-                   
-                   </View>
-                  
-                   
+                
                 </View>
                 <View style={{ flex: 3, padding:20,alignItems:'center' }} >
                   <Text style={{color:'#00C0F0',fontWeight:'bold',fontSize:18}}><FontAwesome name="rupee" size={16} color="#00C0F0" />{data.apptamount}</Text>
@@ -190,8 +192,7 @@ const styles = StyleSheet.create({
     boxShadow:'rgba(0, 0, 0, 0.24) 0px 3px 8px'
   },
   container: {
-     backgroundColor:'#fff',
-    
+    backgroundColor:'#fff',
   },
   rate : {
     backgroundColor:'#fff',

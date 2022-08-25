@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
 import React, {useState,useEffect} from 'react';
 import {View, Text,TouchableOpacity, StyleSheet,Picker} from 'react-native';
 import axios from "axios";
-
+import { Ionicons } from '@expo/vector-icons';
 const AlreadyDia = ({ navigation }) => {
   const [countryitems, setCountryItems] = useState([]);
   const [specitems, setSpecItems] = useState([]);
@@ -42,7 +41,8 @@ const AlreadyDia = ({ navigation }) => {
     }
   }
   return (
-    <View >
+    <View  style={{backgroundColor:'#fff',flex:1}}>
+   
     <View style={styles.topContainer}>
         <Text style={styles.topText}>
             Choose Department And Destination 
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         color:'red'
     },
     buttonContainer:{
-        flex: 1,
+        
         flexDirection: "row",
         justifyContent: "space-around",
     },

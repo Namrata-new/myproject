@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TouchableOpacity, Button,View, Alert, Text,StyleSheet , Image} from 'react-native';
+import { TouchableOpacity, Button,View, Text,StyleSheet , Image} from 'react-native';
 const HomeScreen = ({ navigation }) => {
    return (
     <View style = {styles.container}>

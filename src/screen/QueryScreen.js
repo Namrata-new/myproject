@@ -39,8 +39,7 @@ const QueryScreen = ({ navigation }) => {
       return true;
      
     }
-    
-   
+  
     const submitData=()=>{
       if(isValidForm()){
         console.log("submitData")

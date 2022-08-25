@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // background-image: linear-gradient(to right top, #f22e2f, #f84854, #f86174, #f57890, #ee8fa8);
-        backgroundImage: 'linear-gradient(to right top, #f22e2f, #f84854, #f86174, #f57890, #ee8fa8)',
+        backgroundColor:'#004d61',
         alignItems: 'center',
         justifyContent: 'center',
         padding:20

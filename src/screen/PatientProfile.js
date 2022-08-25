@@ -418,6 +418,7 @@ const styles = StyleSheet.create({
         paddingBottom:20,
         alignContent:'center',
         justifyContent:'center',
+        flex:1
         
     },
     input:{

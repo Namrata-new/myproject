@@ -15,13 +15,17 @@ import PatientForm from './src/screen/PatientForm';
 import SelectDateTime from './src/screen/SelectDateTime';
 import PaymentScreen from './src/screen/PaymentScreen';
 import { Ionicons } from '@expo/vector-icons'; 
+import AlreadyDia from './src/screen/AlreadyDia';
+import GetDia from './src/screen/GetDia';
+import FeedBack from './src/screen/FeedBack';
+import QueryScreen from './src/screen/QueryScreen';
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator  >
-         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+         <Stack.Screen name="Home" component={FeedBack} options={{ headerShown: false }}/>
          <Stack.Screen name="PatientLogin" component={Login} 
           options={{ 
          header: () => (
@@ -51,6 +55,8 @@ export default function App() {
          <Stack.Screen name="Select Date" component={SelectDateTime} />
          <Stack.Screen name="Patient Form" component={PatientForm} />
          <Stack.Screen name="Payment Form" component={PaymentScreen} />
+         <Stack.Screen name="Already Diag" component={AlreadyDia} />
+         <Stack.Screen name="Get_Diag" component={GetDia} />
       </Stack.Navigator>
     </NavigationContainer>
   );
