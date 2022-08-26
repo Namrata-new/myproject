@@ -26,7 +26,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator  >
-         <Stack.Screen name="Home" component={Dates} options={{ headerShown: false }}/>
+         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
          <Stack.Screen name="PatientLogin" component={Login} 
           options={{ 
          header: () => (
