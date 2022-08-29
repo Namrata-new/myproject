@@ -1,9 +1,9 @@
-import React,{useState,useEffect} from 'react';
-import { SafeAreaView,Button, View, Alert , Text,StyleSheet,ScrollView,TouchableOpacity} from 'react-native';
-import { NativeBaseProvider, Box ,Input,Modal} from "native-base";
+import React,{useState} from 'react';
+import { Button, View,Text,StyleSheet,TouchableOpacity} from 'react-native';
+import { NativeBaseProvider, Box ,Input} from "native-base";
 import * as DocumentPicker from 'expo-document-picker';
 import { FontAwesome5 } from '@expo/vector-icons'; 
-import axios from "axios";
+
 const QueryScreen = ({ navigation }) => {
     const [values,setValues]= useState({
       firstname:'',

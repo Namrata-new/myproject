@@ -1,9 +1,6 @@
 import React,{useState,useEffect} from 'react';
-import { SafeAreaView, StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import axios from "axios"; 
-import { Avatar } from "@react-native-material/core";
-import { Chip } from "@react-native-material/core";
-import { Ionicons } from '@expo/vector-icons'; 
 
 const MyTripStatus = () => {
   const user = JSON.parse(localStorage.getItem('LoginUser'));

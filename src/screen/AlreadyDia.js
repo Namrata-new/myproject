@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import {View, Text,TouchableOpacity, StyleSheet,Picker} from 'react-native';
 import axios from "axios";
-import { Ionicons } from '@expo/vector-icons';
+
 const AlreadyDia = ({ navigation }) => {
   const [countryitems, setCountryItems] = useState([]);
   const [specitems, setSpecItems] = useState([]);

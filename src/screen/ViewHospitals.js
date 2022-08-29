@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView, StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text} from 'react-native';
 
 const ViewHospitals = ({ navigation }) => {
     return (

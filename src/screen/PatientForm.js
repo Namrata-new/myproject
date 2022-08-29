@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
-import { SafeAreaView, StyleSheet, View, Text, Button,TouchableOpacity } from 'react-native';
-import { NativeBaseProvider, Box ,Input,Modal} from "native-base";
+import { StyleSheet, View, Text, Button,TouchableOpacity } from 'react-native';
+import { NativeBaseProvider, Box ,Input} from "native-base";
 import * as DocumentPicker from 'expo-document-picker';
 import { FontAwesome5 } from '@expo/vector-icons'; 
 const PatientForm = ({ navigation, route }) => {

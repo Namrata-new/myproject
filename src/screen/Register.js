@@ -1,5 +1,5 @@
 import React ,{useState,useEffect }from 'react';
-import { SafeAreaView,TouchableOpacity, Button,View, Alert, Text,StyleSheet,TextInput,Picker, Platform, StatusBar } from 'react-native';
+import {TouchableOpacity,View, Text,StyleSheet,TextInput,Picker} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; 
 import * as DocumentPicker from 'expo-document-picker';
 import axios from "axios";

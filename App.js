@@ -20,6 +20,7 @@ import GetDia from './src/screen/GetDia';
 import FeedBack from './src/screen/FeedBack';
 import QueryScreen from './src/screen/QueryScreen';
 import Dates from './src/screen/Dates';
+import 'react-native-gesture-handler';
 const Stack = createStackNavigator();
 
 export default function App() {

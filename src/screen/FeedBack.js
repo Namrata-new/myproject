@@ -1,10 +1,7 @@
-import React,{useState,useEffect} from 'react';
-import { SafeAreaView,Button, View, Alert , Text,StyleSheet,CheckBox,TouchableOpacity} from 'react-native';
+import React,{useState} from 'react';
+import { Button, View,Text,StyleSheet,CheckBox,TouchableOpacity} from 'react-native';
 import { NativeBaseProvider, Box ,Input} from "native-base";
-import * as DocumentPicker from 'expo-document-picker';
-import { FontAwesome5 } from '@expo/vector-icons'; 
-import axios from "axios";
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { AirbnbRating } from 'react-native-ratings';
 import RadioForm from 'react-native-simple-radio-button';
 import Modal from "react-native-modal";
 import { Ionicons } from '@expo/vector-icons';

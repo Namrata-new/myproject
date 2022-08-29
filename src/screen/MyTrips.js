@@ -3,8 +3,6 @@ import { StyleSheet, Text, SafeAreaView, View } from 'react-native'
 import axios from "axios"; 
 import { Button } from "@react-native-material/core";
 import { HStack } from "@react-native-material/core";
-
-
 const MyTrips = () => {
    const user = JSON.parse(localStorage.getItem('LoginUser'));
    const [mytrips, setMytrip] = useState([]);

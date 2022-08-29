@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { SafeAreaView,TouchableOpacity, Button,View, Alert, Text,StyleSheet,TextInput,Image } from 'react-native';
+import React from 'react';
+import { View,Text,StyleSheet,Image } from 'react-native';
 
  
 const DoctorProfile = ({ navigation ,route}) => {

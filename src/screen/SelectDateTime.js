@@ -1,10 +1,8 @@
 import React,{useEffect,useState} from 'react';
-import { SafeAreaView, StyleSheet, View, Text, Button, TouchableOpacity,Pressable } from 'react-native';
-
+import { SafeAreaView, StyleSheet, View, Text,TouchableOpacity,Pressable } from 'react-native';
 import axios from "axios";
 import moment from 'moment';
 import DatePicker from 'react-native-neat-date-picker'
-
 
 const SelectDateTime = ({ navigation,route }) => {
     const [startDate, setStartDate] = useState(new Date());

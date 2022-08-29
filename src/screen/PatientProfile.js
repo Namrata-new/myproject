@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Button, View, Alert, TouchableOpacity,Text,StyleSheet,ScrollView,Image} from 'react-native';
+import React, { useState,} from 'react';
+import { Button, View,TouchableOpacity,Text,StyleSheet,ScrollView,Image} from 'react-native';
 import axios from "axios";
 import { Entypo } from '@expo/vector-icons';
-import { NativeBaseProvider, Box ,Input,Modal} from "native-base"; 
+import { NativeBaseProvider, Box ,Input} from "native-base"; 
 import * as DocumentPicker from 'expo-document-picker';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 

@@ -6,14 +6,11 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
-  DrawerItem,
+ 
 } from '@react-navigation/drawer';
 
-import Ionicons from '@expo/vector-icons/Ionicons';
 import PatientHome from './PatientHome';
-import AlreadyDia from './AlreadyDia';
 import PatientProfile from './PatientProfile';
-import GetDia from './GetDia';
 import MyAppointment from './MyAppointment';
 import MyItinerary from './MyItinerary';
 import MyTripStatus from './MyTripStatus';

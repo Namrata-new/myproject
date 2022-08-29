@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { TouchableOpacity, Button,View, Text,StyleSheet , Image} from 'react-native';
+import logo from "../assets/logo.png";
 const HomeScreen = ({ navigation }) => {
    return (
     <View style = {styles.container}>
-       <Image style={styles.logo}  source={{uri: require('../assets/logo.png')}}/>
+      <Image source={logo} style={styles.logo} />
       <Text style={styles.text} >Welcome to App</Text>
       {/* <TouchableOpacity
          style={styles.signin}

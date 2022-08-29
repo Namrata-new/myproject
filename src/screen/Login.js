@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react';
-import { SafeAreaView,TouchableOpacity, Button,View, Alert, Text,StyleSheet,TextInput } from 'react-native';
+import {TouchableOpacity,View, Text,StyleSheet,TextInput } from 'react-native';
 import axios from "axios";
 
 const Login = ({ navigation }) => {

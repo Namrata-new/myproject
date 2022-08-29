@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity,Image, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity,Image,} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; 
 import axios from "axios"; 
 import { FontAwesome5 } from '@expo/vector-icons'; 
@@ -7,7 +7,6 @@ import { Chip } from "@react-native-material/core";
 import { MaterialIcons } from '@expo/vector-icons'; 
 import Modal from "react-native-modal";
 import { Ionicons } from '@expo/vector-icons'; 
-
 
 const MyAppointment = ({ navigation, route }) => {
   const user = JSON.parse(localStorage.getItem('LoginUser'));

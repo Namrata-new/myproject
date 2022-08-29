@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { SafeAreaView,TouchableOpacity, Button,View, Alert, Text,StyleSheet,TextInput,Image } from 'react-native';
+import React from 'react';
+import {TouchableOpacity,View,Text,StyleSheet,Image } from 'react-native';
 
- 
 const PatientHome = ({ navigation }) => {
    const user = JSON.parse(localStorage.getItem('LoginUser'));
    return (
